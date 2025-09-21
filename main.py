@@ -37,11 +37,8 @@ def main():
     print(f"🌐 Admin Panel: http://{Config.ADMIN_PANEL_HOST}:{Config.ADMIN_PANEL_PORT}")
     print("=" * 50)
     
-    if not Config.BOT_TOKEN:
-        print("❌ ОШИБКА: Не установлен BOT_TOKEN в переменных окружения!")
-        print("Создайте файл .env и добавьте BOT_TOKEN=your_bot_token_here")
-        return
-    
+    if not Config.BOT_TOKEN:AAHvrL68hfoyT9OZ6Y-ZIIlxUnV2Mp5hacQ
+            
     # Запускаем бота и админ-панель в отдельных процессах
     bot_process = Process(target=run_bot)
     admin_process = Process(target=run_admin_panel)
@@ -67,4 +64,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
