@@ -44,8 +44,8 @@ cp .env.example .env
 4. **Настройте переменные окружения в `.env`:**
 ```env
 # Telegram Bot Configuration
-BOT_TOKEN=your_bot_token_here
-ADMIN_USER_ID=your_telegram_user_id
+BOT_TOKEN=AAHvrL68hfoyT9OZ6Y-ZIIlxUnV2Mp5hacQ
+ADMIN_USER_ID=8388482200
 
 # Database Configuration
 DATABASE_URL=sqlite+aiosqlite:///./equipment.db
