@@ -1,0 +1,13 @@
+# Скопируйте этот файл в .env и заполните своими данными
+
+# Telegram Bot Configuration
+BOT_TOKEN=your_bot_token_here
+ADMIN_USER_ID=your_telegram_user_id
+
+# Database Configuration
+DATABASE_URL=sqlite+aiosqlite:///./equipment.db
+
+# Web Admin Panel
+ADMIN_PANEL_PORT=8000
+ADMIN_PANEL_HOST=127.0.0.1
+
