@@ -82,6 +82,7 @@ async def add_equipment_form(request: Request):
         "request": request,
         "equipment": None,
         "categories": Config.EQUIPMENT_CATEGORIES,
+        "subcategories": None,
         "action": "add"
     })
 
@@ -89,6 +90,7 @@ async def add_equipment_form(request: Request):
 async def add_equipment(
     name: str = Form(...),
     category: str = Form(...),
+    subcategory: Optional[str] = Form(None),
     description: Optional[str] = Form(None),
     price: float = Form(...),
     currency: str = Form("RUB"),
@@ -112,6 +114,7 @@ async def add_equipment(
     equipment_data = EquipmentCreate(
         name=name,
         category=category,
+        subcategory=subcategory,
         description=description,
         price=price,
         currency=currency,
@@ -137,6 +140,7 @@ async def edit_equipment_form(request: Request, equipment_id: int, db: AsyncSess
         "request": request,
         "equipment": equipment,
         "categories": Config.EQUIPMENT_CATEGORIES,
+        "subcategories": None,
         "action": "edit"
     })
 
@@ -145,6 +149,7 @@ async def edit_equipment(
     equipment_id: int,
     name: str = Form(...),
     category: str = Form(...),
+    subcategory: Optional[str] = Form(None),
     description: Optional[str] = Form(None),
     price: float = Form(...),
     currency: str = Form("RUB"),
@@ -168,6 +173,7 @@ async def edit_equipment(
     equipment_data = EquipmentUpdate(
         name=name,
         category=category,
+        subcategory=subcategory,
         description=description,
         price=price,
         currency=currency,

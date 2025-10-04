@@ -5,6 +5,7 @@ from datetime import datetime
 class EquipmentBase(BaseModel):
     name: str
     category: str
+    subcategory: Optional[str] = None
     description: Optional[str] = None
     price: float
     currency: str = "RUB"
@@ -19,6 +20,7 @@ class EquipmentCreate(EquipmentBase):
 class EquipmentUpdate(BaseModel):
     name: Optional[str] = None
     category: Optional[str] = None
+    subcategory: Optional[str] = None
     description: Optional[str] = None
     price: Optional[float] = None
     currency: Optional[str] = None
@@ -55,6 +57,7 @@ class UserResponse(UserBase):
 class SearchRequest(BaseModel):
     query: Optional[str] = None
     category: Optional[str] = None
+    subcategory: Optional[str] = None
     min_price: Optional[float] = None
     max_price: Optional[float] = None
     brand: Optional[str] = None

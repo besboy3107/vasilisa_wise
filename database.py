@@ -13,6 +13,7 @@ class Equipment(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(255), nullable=False, index=True)
     category = Column(String(100), nullable=False, index=True)
+    subcategory = Column(String(100), nullable=True, index=True)
     description = Column(Text)
     price = Column(Float, nullable=False)
     currency = Column(String(10), default="RUB")
@@ -42,6 +43,12 @@ async def init_db():
     """Initialize database tables"""
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+        # Lightweight migration: add subcategory column if it doesn't exist (SQLite only)
+        try:
+            await conn.exec_driver_sql("ALTER TABLE equipment ADD COLUMN subcategory VARCHAR(100)")
+        except Exception:
+            # Column likely already exists; ignore
+            pass
 
 async def get_db():
     """Get database session"""

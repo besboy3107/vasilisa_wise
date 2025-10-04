@@ -15,6 +15,7 @@ class EquipmentService:
         db_equipment = Equipment(
             name=equipment_data.name,
             category=equipment_data.category,
+            subcategory=equipment_data.subcategory,
             description=equipment_data.description,
             price=equipment_data.price,
             currency=equipment_data.currency,
@@ -58,6 +59,9 @@ class EquipmentService:
         
         if search_request.category:
             conditions.append(Equipment.category == search_request.category)
+
+        if getattr(search_request, "subcategory", None):
+            conditions.append(Equipment.subcategory == search_request.subcategory)
         
         if search_request.min_price is not None:
             conditions.append(Equipment.price >= search_request.min_price)
@@ -114,6 +118,13 @@ class EquipmentService:
         """Get all unique brands"""
         result = await self.db.execute(
             select(Equipment.brand).where(Equipment.brand.isnot(None)).distinct()
+        )
+        return [row[0] for row in result.fetchall()]
+
+    async def get_subcategories(self, category: str) -> List[str]:
+        """Get all unique subcategories for a category"""
+        result = await self.db.execute(
+            select(Equipment.subcategory).where(Equipment.category == category, Equipment.subcategory.isnot(None)).distinct()
         )
         return [row[0] for row in result.fetchall()]
 
