@@ -349,30 +349,23 @@ class EquipmentBot:
         
         await query.edit_message_text(text, parse_mode=ParseMode.MARKDOWN)
     
-    async def run(self):
+    def run(self):
         """Запуск бота"""
-        # Инициализация базы данных
-        await init_db()
-        
-        # Запуск бота
-        logger.info("Запуск Telegram бота...")
-        await self.application.initialize()
-        await self.application.start()
-        await self.application.updater.start_polling()
-        
-        logger.info("Бот запущен и готов к работе!")
-        
-        # Ожидание завершения
+        # Создаем и устанавливаем event loop для совместимости с Python 3.13
         try:
-            await asyncio.Event().wait()
-        except KeyboardInterrupt:
-            logger.info("Получен сигнал завершения...")
-        finally:
-            await self.application.updater.stop()
-            await self.application.stop()
-            await self.application.shutdown()
+            asyncio.get_running_loop()
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+
+        # Инициализация базы данных
+        asyncio.get_event_loop().run_until_complete(init_db())
+        
+        # Запуск бота (блокирующий вызов)
+        logger.info("Запуск Telegram бота...")
+        self.application.run_polling()
 
 if __name__ == "__main__":
     bot = EquipmentBot()
-    asyncio.run(bot.run())
+    bot.run()
 
