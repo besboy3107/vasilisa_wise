@@ -19,7 +19,8 @@ def run_bot():
     """Запуск Telegram-бота"""
     from bot import EquipmentBot
     bot = EquipmentBot()
-    asyncio.run(bot.run())
+    # Синхронный запуск бота (внутри использует run_polling)
+    bot.run()
 
 def run_admin_panel():
     """Запуск админ-панели"""
